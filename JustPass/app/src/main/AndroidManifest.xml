@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="myapp.justpass"
+<manifest
+    package="com.example.tectonik.justpass"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application

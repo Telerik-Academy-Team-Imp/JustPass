@@ -1,2 +1,0 @@
-# JustPass
-You shall pass!
