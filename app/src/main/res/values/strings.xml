@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Thine wine shall become brine</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="login_title">Sign in or sign up!</string>
     <string name="username_text">User:</string>
     <string name="usernameInput_hint">username</string>
@@ -12,4 +12,11 @@
     <string name="genders_unknown">alien</string>
     <string name="loginBtn_text">Login</string>
     <string name="registerBtn_text">Register</string>
+    <string name="Sync_page_title">Log in Student System</string>
+    <string name="Username_hint">Username</string>
+    <string name="Password_hint">Password</string>
+    <string name="Sync_btn_text">Sync</string>
+    <string name="Reg_form_title">Register</string>
+    <string name="Repeat_password">Repeat Password</string>
+    <string name="Email_hint">Email</string>
 </resources>
