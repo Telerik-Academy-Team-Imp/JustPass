@@ -3,6 +3,9 @@ package com.example.tectonik.justpass;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,36 +14,60 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.tectonik.justpass.fragments.LoginFragment;
+import com.example.tectonik.justpass.fragments.MainPageFragment;
+import com.example.tectonik.justpass.fragments.RegistrationFragment;
+
 public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
-    Button profileBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        profileBtn = (Button) findViewById(R.id.btn_navToProfile);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        JustPassPagerAdapter adapter = new JustPassPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+    }
 
-        profileBtn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
+    public void navigateToFragment(View view) {
+        switch (view.getId()) {
+            case R.id.btn_reg_login_page:
+                viewPager.setCurrentItem(1);
+                break;
+            case R.id.btn_login:
                 viewPager.setCurrentItem(2);
+                break;
+        }
+    }
+
+    public class JustPassPagerAdapter extends FragmentPagerAdapter {
+        public JustPassPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new LoginFragment();
+                case 1:
+                    return new RegistrationFragment();
+                case 2:
+                    return new MainPageFragment();
+                default:
+                    return null;
             }
-        });
+        }
     }
 
     @Override

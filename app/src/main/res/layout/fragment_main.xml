@@ -9,16 +9,9 @@
                 tools:context="com.example.tectonik.justpass.MainActivityFragment"
                 tools:showIn="@layout/activity_main">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:id="@+id/btn_navToProfile"/>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
     </LinearLayout>
 
 </RelativeLayout>

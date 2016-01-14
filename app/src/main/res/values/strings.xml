@@ -12,11 +12,12 @@
     <string name="genders_unknown">alien</string>
     <string name="loginBtn_text">Login</string>
     <string name="registerBtn_text">Register</string>
-    <string name="Sync_page_title">Log in Student System</string>
+    <string name="Login_page_title">Log in Student System</string>
     <string name="Username_hint">Username</string>
     <string name="Password_hint">Password</string>
-    <string name="Sync_btn_text">Sync</string>
-    <string name="Reg_form_title">Register</string>
+    <string name="Login_btn_text">Login</string>
+    <string name="Reg_form_title">Register Form</string>
     <string name="Repeat_password">Repeat Password</string>
     <string name="Email_hint">Email</string>
+    <string name="Login_reg_button">Not registered yet?</string>
 </resources>
