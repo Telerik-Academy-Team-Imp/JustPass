@@ -1,5 +1,6 @@
 package com.example.tectonik.justpass;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -12,23 +13,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
-import com.example.tectonik.justpass.fragments.CourseFragment;
-import com.example.tectonik.justpass.fragments.CoursesFragment;
 import com.example.tectonik.justpass.fragments.LoginFragment;
 import com.example.tectonik.justpass.fragments.MainPageFragment;
 import com.example.tectonik.justpass.fragments.ProfileFragment;
 import com.example.tectonik.justpass.fragments.RegistrationFragment;
+import com.example.tectonik.justpass.helpers.Constants;
 
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     DrawerLayout drawer;
     ViewPager viewPager;
     Stack<Integer> pageHistory;
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     boolean saveToHistory;
     AppBarLayout appBar;
     Toolbar toolbar;
-    boolean isLogged = false;
+    boolean isLogged = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +77,14 @@ public class MainActivity extends AppCompatActivity
             }
         });
         saveToHistory = true;
+
+
+        if (getIntent().getExtras() != null) {
+            Bundle extras = getIntent().getExtras();
+            int page = extras.getInt(Constants.PAGE);
+
+            viewPager.setCurrentItem(page);
+        }
     }
 
     public void navigateToFragment(View view) {
@@ -92,17 +98,15 @@ public class MainActivity extends AppCompatActivity
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 appBar.setVisibility(View.VISIBLE);
                 viewPager.setCurrentItem(2);
+                saveToHistory = false;
                 pageHistory.clear();
                 break;
             case R.id.btn_registration:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 appBar.setVisibility(View.VISIBLE);
                 viewPager.setCurrentItem(2);
+                saveToHistory = false;
                 pageHistory.clear();
-                break;
-            case R.id.prof_test_btn:
-                currentPage = viewPager.getCurrentItem();
-                viewPager.setCurrentItem(5);
                 break;
         }
     }
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            return 6;
+            return 5;
         }
 
         @Override
@@ -129,15 +133,14 @@ public class MainActivity extends AppCompatActivity
                         return new LoginFragment();
                     }
                 case 1:
-                    return new RegistrationFragment();
-                case 2:
                     return new MainPageFragment();
-                case 3:
+                case 2:
                     return new ProfileFragment();
+                case 3:
+                    return new LoginFragment();
                 case 4:
-                    return new CoursesFragment();
-                case 5:
-                    return new CourseFragment();
+                    return new RegistrationFragment();
+
                 default:
                     return null;
             }
@@ -148,36 +151,36 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (!pageHistory.empty()) {
+        } else if (pageHistory.size() > 0) {
             saveToHistory = false;
             viewPager.setCurrentItem(pageHistory.pop().intValue());
             saveToHistory = true;
-        } else {
+        } else if(pageHistory.empty()) {
             super.onBackPressed();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -185,20 +188,29 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_main) {
+        if (id == R.id.nav_main) {
             currentPage = viewPager.getCurrentItem();
-            viewPager.setCurrentItem(2);
+            viewPager.setCurrentItem(1);
         } else if (id == R.id.nav_courses) {
             currentPage = viewPager.getCurrentItem();
-            viewPager.setCurrentItem(4);
+            Intent intent = new Intent(this, CoursesActivity.class);
+            intent.putExtra(Constants.PAGE, 0);
+            startActivity(intent);
         } else if (id == R.id.nav_course) {
             currentPage = viewPager.getCurrentItem();
-            viewPager.setCurrentItem(5);
+            Intent intent = new Intent(this, CoursesActivity.class);
+            intent.putExtra(Constants.PAGE, 1);
+            startActivity(intent);
         } else if (id == R.id.nav_profile) {
             currentPage = viewPager.getCurrentItem();
-            viewPager.setCurrentItem(3);
+            viewPager.setCurrentItem(2);
         } else if (id == R.id.nav_logout) {
-
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            appBar.setVisibility(View.GONE);
+            saveToHistory = false;
+            pageHistory.clear();
+            isLogged = false;
+            viewPager.setCurrentItem(3);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
