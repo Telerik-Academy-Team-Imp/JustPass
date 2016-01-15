@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:title="Import"/>
-        <item
-            android:id="@+id/nav_gallery"
-            android:title="Gallery"/>
-        <item
-            android:id="@+id/nav_slideshow"
-            android:title="Slideshow"/>
-        <item
-            android:id="@+id/nav_manage"
-            android:title="Tools"/>
-    </group>
-
-    <item android:title="Communicate">
+        <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_main"
+                android:title="Main Page"
+                android:icon="@drawable/home"/>
+            <item
+                android:id="@+id/nav_courses"
+                android:title="Courses"
+                android:icon="@android:drawable/ic_menu_sort_by_size"/>
+            <item
+                android:id="@+id/nav_course"
+                android:title="Current course"
+                android:icon="@android:drawable/ic_menu_agenda"/>
+            <item
+                android:id="@+id/nav_profile"
+                android:title="Profile"
+                android:icon="@drawable/profile"/>
+        </group>
+    <item android:title="Exit">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:title="Share"/>
-            <item
-                android:id="@+id/nav_send"
-                android:title="Send"/>
+                android:id="@+id/nav_logout"
+                android:title="Log Out"
+                android:icon="@drawable/exit"/>
         </menu>
     </item>
 

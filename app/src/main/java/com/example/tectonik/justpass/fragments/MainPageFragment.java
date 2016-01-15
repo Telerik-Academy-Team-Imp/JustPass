@@ -15,4 +15,5 @@ public class MainPageFragment extends Fragment {
 
         return rootView;
     }
+
 }

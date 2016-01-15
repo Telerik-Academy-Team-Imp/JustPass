@@ -9,7 +9,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/Reg_form_title"
         android:id="@+id/textView"
-        android:layout_marginTop="80dp"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -84,12 +83,15 @@
         android:orientation="vertical"
         android:layout_marginTop="30dp">
         <Button
+            android:id="@+id/btn_registration"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/registerBtn_text"
             android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"/>
+            android:textSize="23sp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:textAllCaps="false"
+            android:onClick="navigateToFragment"/>
     </LinearLayout>
 </LinearLayout>

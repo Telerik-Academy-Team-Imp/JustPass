@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Thine wine shall become brine</string>
+    <string name="app_name">JustPass</string>
     <string name="action_logout">Logout</string>
     <string name="login_title">Sign in or sign up!</string>
     <string name="username_text">User:</string>
@@ -16,8 +16,10 @@
     <string name="Username_hint">Username</string>
     <string name="Password_hint">Password</string>
     <string name="Login_btn_text">Login</string>
-    <string name="Reg_form_title">Register Form</string>
+    <string name="Reg_form_title">Registration Form</string>
     <string name="Repeat_password">Repeat Password</string>
     <string name="Email_hint">Email</string>
     <string name="Login_reg_button">Not registered yet?</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
