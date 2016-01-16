@@ -42,9 +42,14 @@ myRouter
                     });
                 });
 
-                res.status(201).json({
-                    result: resultArray
-                });
+                var millisecondsToWait = 5000;
+                setTimeout(function() {
+                    res.status(201).json({
+                        result: resultArray
+                    });
+                }, millisecondsToWait);
+
+
             });
     })
     .get('/:id', function (req, res)
