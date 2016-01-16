@@ -1,9 +1,9 @@
 "use strict";
 console.log('Logs router loaded');
 
-let express = require('express'),
+let express  = require('express'),
     myRouter = express.Router(),
-    logs = [];
+    logs     = [];
 
 let Everlive = require('./../everlive.all');
 let el = new Everlive('9unql0fug2904yqd');
@@ -12,9 +12,11 @@ myQuery.where().isin('Name', ['Doncho', 'Evlogi']);
 let telerikTrainerData = el.data('TelerikCourse');
 //<script src="everlive.all.js" charset="utf-8"></script>
 
-function* getNextId() {
+function* getNextId()
+{
     let id = 1;
-    while (true) {
+    while (true)
+    {
         yield id++;
     }
 }
@@ -22,13 +24,21 @@ function* getNextId() {
 let logsIdGenerator = getNextId();
 
 myRouter
-    .get('/', function (req, res) {
+    .get('/', function (req, res)
+    {
         telerikTrainerData.get()
-            .then(function (response) {
+            .then(function (response)
+            {
                 let resultArray = [];
-                response.result.forEach(x => {
+                response.result.forEach(x =>
+                {
                     resultArray.push({
-                        name: x.Name
+                        name: x.Name,
+                        id: x.Id,
+                        homeworks: x.Homeworks,
+                        endDate: x.EndDate,
+                        startDate: x.StartDate
+                        //x
                     });
                 });
 
@@ -37,11 +47,14 @@ myRouter
                 });
             });
     })
-    .get('/:id', function (req, res) {
+    .get('/:id', function (req, res)
+    {
         telerikTrainerData.get()
-            .then(function (response) {
+            .then(function (response)
+            {
                 let resultArray = [];
-                response.result.forEach(x => {
+                response.result.forEach(x =>
+                {
                     resultArray.push({
                         name: x.Name
                     });
@@ -52,7 +65,8 @@ myRouter
                 });
             });
     })
-    .post('/', function (req, res) {
+    .post('/', function (req, res)
+    {
 
         let telerikTrainerData = el.data('TelerikCourse');
         telerikTrainerData.pos
@@ -63,12 +77,12 @@ myRouter
 
         res
             .status(201)
-            .json
-            ({
+            .json({
                 result: log
             });
     });
 
-module.exports = function (app) {
+module.exports = function (app)
+{
     app.use('/api/courses', myRouter);
 };
