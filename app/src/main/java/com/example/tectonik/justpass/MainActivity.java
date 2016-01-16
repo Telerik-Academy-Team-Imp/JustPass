@@ -16,10 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.MenuItem;
-import android.widget.CheckBox;
 
 import com.example.tectonik.justpass.fragments.AboutFragment;
-import com.example.tectonik.justpass.fragments.AddCourseFragment;
 import com.example.tectonik.justpass.fragments.LoginFragment;
 import com.example.tectonik.justpass.fragments.MainPageFragment;
 import com.example.tectonik.justpass.fragments.ProfileFragment;
@@ -95,6 +93,8 @@ public class MainActivity extends AppCompatActivity
 
             viewPager.setCurrentItem(page);
         }
+
+
     }
 
     public void navigateToFragment(View view) {
