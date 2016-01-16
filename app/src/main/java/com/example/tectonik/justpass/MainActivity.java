@@ -107,15 +107,15 @@ public class MainActivity extends AppCompatActivity
             case R.id.btn_login:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 appBar.setVisibility(View.VISIBLE);
-                viewPager.setCurrentItem(2);
-                saveToHistory = false;
-                pageHistory.clear();
+                viewPager.setCurrentItem(1);
+                //saveToHistory = false;
+                pageHistory.pop();
                 break;
             case R.id.btn_registration:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 appBar.setVisibility(View.VISIBLE);
-                viewPager.setCurrentItem(2);
-                saveToHistory = false;
+                viewPager.setCurrentItem(1);
+                //saveToHistory = false;
                 pageHistory.clear();
                 break;
         }
@@ -162,11 +162,11 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (pageHistory.size() > 0) {
+        } else if (!pageHistory.empty()) {
             saveToHistory = false;
             viewPager.setCurrentItem(pageHistory.pop().intValue());
             saveToHistory = true;
-        } else if (pageHistory.empty()) {
+        } else {
             super.onBackPressed();
         }
     }
@@ -227,8 +227,7 @@ public class MainActivity extends AppCompatActivity
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             appBar.setVisibility(View.GONE);
             saveToHistory = false;
-            pageHistory.clear();
-            isLogged = false;
+            //pageHistory.pop();
             viewPager.setCurrentItem(4);
             this
                     .getPreferences(Context.MODE_PRIVATE)

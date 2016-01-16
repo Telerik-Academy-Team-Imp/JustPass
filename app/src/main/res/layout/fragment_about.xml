@@ -1,90 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <ImageView
         android:layout_width="230dp"
         android:layout_height="140dp"
-        android:src="@drawable/telerik_ninja"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/fab_margin"/>
+        android:layout_marginTop="@dimen/fab_margin"
+        android:src="@drawable/telerik_ninja"/>
 
     <TextView
+        android:id="@+id/tv_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="JustPass"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:id="@+id/tv_about"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/fab_margin"/>
+        android:layout_margin="@dimen/fab_margin"
+        android:text="JustPass"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
 
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:rowCount="1"
+        android:layout_gravity="center"
         android:columnCount="2"
-        android:useDefaultMargins="true"
-        android:layout_gravity="center">
+        android:rowCount="1"
+        android:useDefaultMargins="true">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_column="0"
             android:text="Version:"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_column="0"/>
+            android:textStyle="bold"/>
+
         <TextView
             android:id="@+id/tv_about_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_column="1"
             android:text="0.1 Alpha"
-            android:textSize="18sp"
-            android:layout_column="1"/>
+            android:textSize="18sp"/>
     </GridLayout>
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="#ccc"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Created by"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/fab_margin"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Team Imp - Beardhammer &amp; zdzdz"
-        android:textSize="18sp"
-        android:layout_gravity="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2016 &#169;"
-        android:textSize="18sp"
-        android:layout_gravity="center"/>
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:background="#ccc"/>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
-        <TextView
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/fab_margin"
-            android:text="@string/lorem_ipsum_text"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/fab_margin"
+                android:text="Created by"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Team Imp - Beardhammer &amp; zdzdz"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="2016 &#169;"
+                android:textSize="18sp"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="#ccc"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fab_margin"
+                android:text="@string/lorem_ipsum_text"/>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
