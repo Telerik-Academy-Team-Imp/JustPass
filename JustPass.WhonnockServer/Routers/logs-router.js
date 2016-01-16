@@ -1,5 +1,4 @@
 "use strict";
-
 console.log('Logs router loaded');
 
 let express = require('express'),
@@ -7,6 +6,10 @@ let express = require('express'),
     logs = [];
 
 let Everlive = require('./../everlive.all');
+let el = new Everlive('9unql0fug2904yqd');
+let myQuery = new Everlive.Query();
+myQuery.where().isin('Name', ['Doncho', 'Evlogi']);
+let telerikTrainerData = el.data('TelerikCourse');
 //<script src="everlive.all.js" charset="utf-8"></script>
 
 function* getNextId() {
@@ -20,12 +23,6 @@ let logsIdGenerator = getNextId();
 
 myRouter
     .get('/', function (req, res) {
-        let el = new Everlive('9unql0fug2904yqd');
-
-        let telerikTrainerData = el.data('TelerikCourse');
-
-        let myQuery = new Everlive.Query();
-        myQuery.where().isin('Name', ['Doncho', 'Evlogi']);
         telerikTrainerData.get()
             .then(function (response) {
                 let resultArray = [];
@@ -39,13 +36,26 @@ myRouter
                     result: resultArray
                 });
             });
-
     })
     .get('/:id', function (req, res) {
+        telerikTrainerData.get()
+            .then(function (response) {
+                let resultArray = [];
+                response.result.forEach(x => {
+                    resultArray.push({
+                        name: x.Name
+                    });
+                });
 
-
+                res.status(201).json({
+                    result: resultArray.where(x => x.Id === req.Id)
+                });
+            });
     })
     .post('/', function (req, res) {
+
+        let telerikTrainerData = el.data('TelerikCourse');
+        telerikTrainerData.pos
         let log = req.body;
         log.id = logsIdGenerator.next();
         log.date = new Date();
@@ -60,5 +70,5 @@ myRouter
     });
 
 module.exports = function (app) {
-    app.use('/api/logs', myRouter);
+    app.use('/api/courses', myRouter);
 };
