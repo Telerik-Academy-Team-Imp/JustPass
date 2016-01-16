@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 
+import com.example.tectonik.justpass.fragments.AboutFragment;
+import com.example.tectonik.justpass.fragments.AddCourseFragment;
 import com.example.tectonik.justpass.fragments.LoginFragment;
 import com.example.tectonik.justpass.fragments.MainPageFragment;
 import com.example.tectonik.justpass.fragments.ProfileFragment;
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.btn_reg_login_page:
                 appBar.setVisibility(View.GONE);
                 currentPage = viewPager.getCurrentItem();
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(5);
                 break;
             case R.id.btn_login:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            return 5;
+            return 6;
         }
 
         @Override
@@ -145,8 +147,10 @@ public class MainActivity extends AppCompatActivity
                 case 2:
                     return new ProfileFragment();
                 case 3:
-                    return new LoginFragment();
+                    return new AboutFragment();
                 case 4:
+                    return new LoginFragment();
+                case 5:
                     return new RegistrationFragment();
                 default:
                     return null;
@@ -211,13 +215,21 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             currentPage = viewPager.getCurrentItem();
             viewPager.setCurrentItem(2);
+        } else if(id == R.id.nav_add_course) {
+            currentPage = viewPager.getCurrentItem();
+            Intent intent = new Intent(this, CoursesActivity.class);
+            intent.putExtra(Constants.PAGE, 2);
+            startActivity(intent);
+        } else if(id == R.id.nav_about) {
+            currentPage = viewPager.getCurrentItem();
+            viewPager.setCurrentItem(3);
         } else if (id == R.id.nav_logout) {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             appBar.setVisibility(View.GONE);
             saveToHistory = false;
             pageHistory.clear();
             isLogged = false;
-            viewPager.setCurrentItem(3);
+            viewPager.setCurrentItem(4);
             this
                     .getPreferences(Context.MODE_PRIVATE)
                     .edit().putBoolean(getString(R.string.autoLog), false)

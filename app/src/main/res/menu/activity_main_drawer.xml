@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <group android:checkableBehavior="single">
+        <group>
             <item
                 android:id="@+id/nav_main"
-                android:title="Main Page"
+                android:title="@string/drawer_main_page_title"
                 android:icon="@drawable/home"/>
             <item
                 android:id="@+id/nav_courses"
-                android:title="Courses"
+                android:title="@string/drawer_courses_title"
                 android:icon="@android:drawable/ic_menu_sort_by_size"/>
             <item
                 android:id="@+id/nav_course"
-                android:title="Current course"
+                android:title="@string/drawer_course_title"
                 android:icon="@android:drawable/ic_menu_agenda"/>
             <item
+                android:id="@+id/nav_add_course"
+                android:title="@string/drawer_add_course_title"
+                android:icon="@drawable/add"/>
+            <item
                 android:id="@+id/nav_profile"
-                android:title="Profile"
+                android:title="@string/drawer_profile_title"
                 android:icon="@drawable/profile"/>
+            <item
+                android:id="@+id/nav_about"
+                android:title="@string/drawer_about_title"
+                android:icon="@drawable/info"/>
         </group>
-    <item android:title="Exit">
+
+    <item android:title="@string/drawer_exit_section">
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:title="Log Out"
+                android:title="@string/drawer_logout_title"
                 android:icon="@drawable/exit"/>
         </menu>
     </item>
