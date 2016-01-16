@@ -3,4 +3,5 @@
     <color name="colorPrimary">#669933</color>
     <color name="colorPrimaryDark">#89CC59</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorPageStrip">#81C141</color>
 </resources>

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.example.tectonik.justpass.fragments.AddCourseFragment;
 import com.example.tectonik.justpass.fragments.CourseFragment;
 import com.example.tectonik.justpass.fragments.CoursesFragment;
 import com.example.tectonik.justpass.helpers.Constants;
@@ -40,7 +41,7 @@ public class CoursesActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -50,8 +51,20 @@ public class CoursesActivity extends AppCompatActivity {
                     return new CoursesFragment();
                 case 1:
                     return new CourseFragment();
+                case 2:
+                    return new AddCourseFragment();
                 default:
                     return null;
+            }
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0: return "Courses";
+                case 1: return "Current Course";
+                case 2: return "Add Course";
+                default: return "non";
             }
         }
     }

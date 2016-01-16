@@ -22,4 +22,6 @@
     <string name="Login_reg_button">Not registered yet?</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="checkboxText">Remember Me</string>
+    <string name="autoLog">isChecked</string>
 </resources>
