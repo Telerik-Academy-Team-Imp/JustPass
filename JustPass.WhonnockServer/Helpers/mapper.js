@@ -1,3 +1,4 @@
-/**
- * Created by Tectonik on 16-Jan-16.
- */
+(function() {
+	'use strict';
+	
+}());

@@ -1,20 +1,23 @@
-"use strict";
-
-let express    = require('express'),
-    constants  = require('./Helpers/constants'),
-    bodyParser = require('body-parser');
-
-let app = express();
-
-app.use(bodyParser.json());
-
-let logsRouter = require('./Routers/logs-router');
-logsRouter(app);
-
-// On route "/api/log" use router myRouter
-//app.use('/api/logs', myRouter);
-
-app.listen(constants.port, function ()
+(function()
 {
-    console.log(`server running on port ${constants.port}`);
-});
+
+	'use strict';
+	const constants = require('./Helpers/constants');
+	let express = require('express'),
+		bodyParser = require('body-parser');
+
+	let app = express();
+
+	app.use(bodyParser.json());
+
+	let coursesRouter = require('./Routers/courses-router');
+	coursesRouter(app);
+
+	// On route "/api/logs" use router myRouter
+	//app.use('/api/logs', myRouter);
+
+	app.listen(constants.port, function()
+	{
+		console.log(`server running on port ${constants.port}`);
+	});
+}());
