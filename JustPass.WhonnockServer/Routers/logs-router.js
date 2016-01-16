@@ -1,15 +1,17 @@
 "use strict";
 console.log('Logs router loaded');
 
-let express  = require('express'),
-    myRouter = express.Router(),
-    logs     = [];
+const constants = require('./../Helpers/constants');
+let Everlive = require(constants.everliveLocation),
+    express  = require('express'),
+    myRouter = express.Router();
 
-let Everlive = require('./../everlive.all');
 let el = new Everlive('9unql0fug2904yqd');
 let myQuery = new Everlive.Query();
 myQuery.where().isin('Name', ['Doncho', 'Evlogi']);
-let telerikTrainerData = el.data('TelerikCourse');
+
+// Type
+let telerikCourseData = el.data('TelerikCourse');
 //<script src="everlive.all.js" charset="utf-8"></script>
 
 function* getNextId()
@@ -26,7 +28,7 @@ let logsIdGenerator = getNextId();
 myRouter
     .get('/', function (req, res)
     {
-        telerikTrainerData.get()
+        telerikCourseData.get()
             .then(function (response)
             {
                 let resultArray = [];
@@ -43,7 +45,8 @@ myRouter
                 });
 
                 var millisecondsToWait = 5000;
-                setTimeout(function() {
+                setTimeout(function ()
+                {
                     res.status(201).json({
                         result: resultArray
                     });
@@ -54,7 +57,7 @@ myRouter
     })
     .get('/:id', function (req, res)
     {
-        telerikTrainerData.get()
+        telerikCourseData.get()
             .then(function (response)
             {
                 let resultArray = [];
@@ -65,25 +68,24 @@ myRouter
                     });
                 });
 
-                res.status(201).json({
-                    result: resultArray.where(x => x.Id === req.Id)
-                });
+                res.status(201)
+                    .json({
+                        result: resultArray.where(x => x.Id === req.Id)
+                    });
             });
     })
     .post('/', function (req, res)
     {
+        let strauss = {
+            Name: "Trsa"
+        };
 
-        let telerikTrainerData = el.data('TelerikCourse');
-        telerikTrainerData.pos
-        let log = req.body;
-        log.id = logsIdGenerator.next();
-        log.date = new Date();
-        logs.push(log);
+        telerikCourseData.create(strauss);
 
         res
             .status(201)
             .json({
-                result: log
+                result: strauss
             });
     });
 

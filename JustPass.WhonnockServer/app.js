@@ -1,6 +1,7 @@
 "use strict";
 
 let express    = require('express'),
+    constants  = require('./Helpers/constants'),
     bodyParser = require('body-parser');
 
 let app = express();
@@ -13,10 +14,7 @@ logsRouter(app);
 // On route "/api/log" use router myRouter
 //app.use('/api/logs', myRouter);
 
-let port = 3001;
-
-
-app.listen(port, function ()
+app.listen(constants.port, function ()
 {
-    console.log(`server running on port ${port}`);
+    console.log(`server running on port ${constants.port}`);
 });
