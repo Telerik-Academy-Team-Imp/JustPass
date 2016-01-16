@@ -1,0 +1,18 @@
+{
+  "name": "veb",
+  "version": "1.0.0",
+  "main": "test.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "everlive-sdk": "^1.6.2",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "description": ""
+}
