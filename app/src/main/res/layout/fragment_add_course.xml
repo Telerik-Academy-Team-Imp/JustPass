@@ -1,7 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Add a course"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="#ccc"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/add_button"
+            android:hint="Course name here"/>
+
+        <Button
+            android:id="@+id/add_button"
+            style="@style/RtlUnderlay.Widget.AppCompat.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="ADD"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="From:"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:paddingRight="80dp"
+                android:text="To:"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <!--<DatePicker-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:calendarViewShown="false"-->
+                <!--style="@android:style/Widget.Holo.DatePicker"-->
+                <!--android:animateLayoutChanges="true"-->
+                <!--android:datePickerMode="spinner"-->
+                <!--android:keepScreenOn="true"-->
+                <!--android:saveEnabled="true"-->
+                <!--android:layout_weight="50"-->
+                <!--android:textSize="8sp">-->
+
+            <!--</DatePicker>-->
+
+            <!--<DatePicker-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:calendarViewShown="false"-->
+                <!--style="@android:style/Widget.Holo.DatePicker"-->
+                <!--android:animateLayoutChanges="true"-->
+                <!--android:datePickerMode="spinner"-->
+                <!--android:keepScreenOn="true"-->
+                <!--android:saveEnabled="true"-->
+                <!--android:layout_weight="50"-->
+                <!--android:scaleY="0.6"-->
+                <!--android:scaleX="0.6"-->
+                <!--android:padding="-20dp">-->
+
+            <!--</DatePicker>-->
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
