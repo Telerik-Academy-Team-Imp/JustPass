@@ -1,6 +1,5 @@
 (function()
 {
-
 	'use strict';
 	const constants = require('./Helpers/constants');
 	let express = require('express'),

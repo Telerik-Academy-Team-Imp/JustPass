@@ -18,13 +18,12 @@ public class ScaleImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scale_image);
 
         pictureViewer =  (ScaleImageView) findViewById(R.id.picture_viewer);
-        //Bundle extras = getIntent().getExtras();
-        //Bitmap bmp = extras.getParcelable("imagebitmap");
-        pictureViewer.setImageResource(R.drawable.profile_pic);
-
-//        Bundle extras = getIntent().getExtras();
-//        int navPage = extras.getInt(Constants.PAGE);
-
-        //coursesViewPager.setCurrentItem(navPage);
+        Bundle extras = getIntent().getExtras();
+        Bitmap bmp = extras.getParcelable("bmp");
+        if (bmp == null) {
+            pictureViewer.setImageResource(R.drawable.profile_pic);
+        } else {
+            pictureViewer.setImageBitmap(bmp);
+        }
     }
 }

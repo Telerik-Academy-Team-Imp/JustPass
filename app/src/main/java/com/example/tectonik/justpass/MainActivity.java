@@ -2,7 +2,9 @@ package com.example.tectonik.justpass;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.example.tectonik.justpass.fragments.AboutFragment;
 import com.example.tectonik.justpass.fragments.LoginFragment;
@@ -23,6 +26,7 @@ import com.example.tectonik.justpass.fragments.MainPageFragment;
 import com.example.tectonik.justpass.fragments.ProfileFragment;
 import com.example.tectonik.justpass.fragments.RegistrationFragment;
 import com.example.tectonik.justpass.helpers.Constants;
+import com.example.tectonik.justpass.helpers.ImageManager;
 
 import java.util.Stack;
 
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -93,8 +99,26 @@ public class MainActivity extends AppCompatActivity
 
             viewPager.setCurrentItem(page);
         }
+    }
 
+    public void takePhoto(View view) {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePhotoIntent, Constants.MY_REQUEST_CODE);
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.MY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            ImageManager.SaveImage(imageBitmap);
+
+            ImageView imageView = (ImageView) this.findViewById(R.id.profile_picture);
+            imageView.setImageBitmap(imageBitmap);
+        }
     }
 
     public void navigateToFragment(View view) {
@@ -215,12 +239,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             currentPage = viewPager.getCurrentItem();
             viewPager.setCurrentItem(2);
-        } else if(id == R.id.nav_add_course) {
+        } else if (id == R.id.nav_add_course) {
             currentPage = viewPager.getCurrentItem();
             Intent intent = new Intent(this, CoursesActivity.class);
             intent.putExtra(Constants.PAGE, 2);
             startActivity(intent);
-        } else if(id == R.id.nav_about) {
+        } else if (id == R.id.nav_about) {
             currentPage = viewPager.getCurrentItem();
             viewPager.setCurrentItem(3);
         } else if (id == R.id.nav_logout) {
