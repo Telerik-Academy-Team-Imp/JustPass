@@ -1,12 +1,12 @@
 package com.example.tectonik.justpass;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.example.tectonik.justpass.customViews.ScaleImageView;
+import com.example.tectonik.justpass.helpers.ImageManager;
 
 public class ScaleImageActivity extends AppCompatActivity {
     ScaleImageView pictureViewer;

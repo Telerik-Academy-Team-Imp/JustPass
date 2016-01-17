@@ -22,6 +22,7 @@ public class ProfileFragment extends Fragment {
     ImageView profilePicture;
     ScaleImageView pictureViewer;
     Bitmap takenPhoto;
+    Bitmap currentPhoto;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class ProfileFragment extends Fragment {
 
         profilePicture = (ImageView) rootView.findViewById(R.id.profile_picture);
         pictureViewer =  (ScaleImageView) rootView.findViewById(R.id.picture_viewer);
+
 
         if(ImageManager.loadFromCacheFile() != null) {
             takenPhoto = ImageManager.loadFromCacheFile();
@@ -38,9 +40,16 @@ public class ProfileFragment extends Fragment {
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                profilePicture.buildDrawingCache();
+                currentPhoto = profilePicture.getDrawingCache();
+
                 Intent intent = new Intent(getActivity(), ScaleImageActivity.class);
                 intent.putExtra(Constants.PAGE, 2);
-                intent.putExtra("bmp", takenPhoto);
+                if(takenPhoto != null) {
+                    intent.putExtra("bmp", takenPhoto);
+                } else{
+                    intent.putExtra("bmp", currentPhoto);
+                }
 
                 startActivity(intent);
             }
