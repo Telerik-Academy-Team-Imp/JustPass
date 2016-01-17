@@ -55,8 +55,10 @@
         <entry file="file://$PROJECT_DIR$/Routers/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding />
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding>
+                <marker date="1453058758245" expanded="true" signature="153:793" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -314,7 +316,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41098082" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -409,7 +411,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1453058758245" expanded="true" signature="153:793" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -465,7 +469,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1453058758245" expanded="true" signature="153:793" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -657,8 +663,10 @@
     <entry file="file://$PROJECT_DIR$/Routers/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <marker date="1453058758245" expanded="true" signature="153:793" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
