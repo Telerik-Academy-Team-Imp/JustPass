@@ -4,73 +4,92 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tectonik.justpass.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class AddCourseFragment extends Fragment {
-    private DatePicker datePicker;
-    private Calendar calendar;
-    private TextView dateView;
-    private int year, month, day;
+
+    int mYear, mMonth,mDay;
+    EditText fromDate;
+    EditText toDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_course, container, false);
+         View rootView = inflater.inflate(R.layout.fragment_add_course, container, false);
+        fromDate = (EditText) rootView.findViewById(R.id.etxt_fromdate);
+        toDate = (EditText) rootView.findViewById(R.id.etxt_todate);
 
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+        fromDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
-        showDate(year, month+1, day);
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        mYear = year;
+                        mMonth = monthOfYear;
+                        mDay = dayOfMonth;
+                        updateDisplay(fromDate);
+                    }
+                };
+
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), mDateSetListener, mYear, mMonth, mDay);
+                dialog.show();
+            }
+        });
+
+        toDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        mYear = year;
+                        mMonth = monthOfYear;
+                        mDay = dayOfMonth;
+                        updateDisplay(toDate);
+                    }
+                };
+
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), mDateSetListener, mYear, mMonth, mDay);
+                dialog.show();
+            }
+        });
         return rootView;
     }
 
-//    @SuppressWarnings("deprecation")
-//    public void setDate(View view) {
-//        showDialog(999);
-//        Toast.makeText(getContext(), "ca", Toast.LENGTH_SHORT)
-//                .show();
-//    }
+    private void updateDisplay(EditText dt) {
 
-//    @Override
-//    protected Dialog onCreateDialog(int id) {
-//        // TODO Auto-generated method stub
-//        if (id == 999) {
-//            return new DatePickerDialog(getActivity(), myDateListener, year, month, day);
-//        }
-//        return null;
-//    }
+        GregorianCalendar c = new GregorianCalendar(mYear, mMonth, mDay);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
-            showDate(arg1, arg2+1, arg3);
-        }
-    };
+        dt.setText(sdf.format(c.getTime()));
 
-    private void showDate(int year, int month, int day) {
-        dateView.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        //transDateString=sdf.format(c.getTime());
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
 }
