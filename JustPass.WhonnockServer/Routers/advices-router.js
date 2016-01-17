@@ -43,7 +43,7 @@
 // 		})
 // 		.get('/:id', function(req, res) {
 // 			telerikCourseData.get()
-// 				.then(function(response) {
+// 				.then(function(response) {\
 // 					let resultArray = [];
 // 					response.result.forEach(x => {
 // 						resultArray.push({
