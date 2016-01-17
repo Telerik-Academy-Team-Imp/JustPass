@@ -59,14 +59,16 @@
 		})
 		.post('/', function(req, res) {
 			let newCourse = {
-				Name: req.body.name
+				Name: req.body.Name
 			};
 
 			telerikCourseData.create(newCourse).then(function(result) {
 				res.status(201)
 					.json({
 						// 0_o -> wut I write?
-						result: result.result
+						result: result.result,
+						request: req.body,
+						objectish:newCourse
 					});
 			});
 		});
