@@ -2,12 +2,14 @@
 {
 	'use strict';
 
-	const everliveLocation = './../everlive.all';
+	const EVERLIVE_API_KEY = '9unql0fug2904yqd'
+	const EVERLIVE_LOCATION = './../everlive.all';
 	// Not Voltron
-	const port = 3001;
+	const PORT = 3001;
 
 	module.exports = {
-		everliveLocation,
-		port
+		EVERLIVE_LOCATION,
+		PORT,
+		EVERLIVE_API_KEY
 	};
 }());

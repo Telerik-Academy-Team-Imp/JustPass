@@ -16,8 +16,8 @@
 	// On route "/api/logs" use router myRouter
 	//app.use('/api/logs', myRouter);
 
-	app.listen(constants.port, function()
+	app.listen(constants.PORT, function()
 	{
-		console.log(`server running on port ${constants.port}`);
+		console.log(`server running on port ${constants.PORT}`);
 	});
 }());
