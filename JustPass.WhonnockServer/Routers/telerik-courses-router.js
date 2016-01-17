@@ -1,63 +1,26 @@
 (function() {
 	'use strict';
 
-	console.log('Courses router loaded');
+	let currentRouter = 'telerik-courses';
+	console.log(`${currentRouter} advices router loaded`);
 
 	const constants = require('./../helpers/constants');
 	let express = require('express'),
 		helpers = require('./../helpers/helpers'),
-		db = require('./../data/data.js').init(),
+		data = require('./../data/data.js'),
+		db = data.init(),
 		myRouter = express.Router(),
 		telerikCourseData = db.data('TelerikCourse');
 
-	let logsIdGenerator = helpers.getNextId();
-
 	myRouter
+	// (req, res, next)
 		.get('/', function(req, res) {
-			telerikCourseData
-				.get()
+			data
+				.getAllWithQuery(telerikCourseData)
 				.then(function(response) {
 						let resultArray = [];
+
 						response
-							.result
-							.forEach(x => {
-								// Remove unnecessary stuff
-								resultArray
-									.push(x
-										//{
-										//    name: x.Name,
-										//    id: x.Id,
-										//    homeworks: x.Homeworks,
-										//    endDate: x.EndDate,
-										//    startDate: x.StartDate
-										//}
-									);
-							});
-
-						// Simulate slow response
-						var millisecondsToWait = 5;
-						setTimeout(function() {
-							res
-								.status(200)
-								.json({
-									result: resultArray
-								});
-						}, millisecondsToWait);
-
-
-					},
-					// TODO: HANDLE THIS
-					function(error) {
-						res.status(404);
-					});
-		})
-		.get('/:id', function(req, res) {
-			telerikCourseData
-				.get()
-				.then(function(response) {
-						let resultArray = [];
-						response
-							.result
 							.forEach(x => {
 								resultArray
 									.push({
@@ -68,57 +31,95 @@
 						res
 							.status(200)
 							.json({
-								result: resultArray.where(x => x.Id === req.Id)
+								result: resultArray
 							});
+
+						console.log(`get on ${currentRouter} successful`);
 					},
 					// TODO: HANDLE THIS
 					function(error) {
-						res.status(404);
+						console.log(`get on ${currentRouter} unsuccessful`);
+						res.status(500).json({
+							error
+						});
 					});
 		})
-		.post('/', function(req, res) {
-			let newCourse = {
-				Id: req.body.Name,
-				CreatedAt: new Date(),
-				ModifiedAt: new Date(),
-				CreatedBy: req.body.CreatedBy,
-				ModifiedBy: req.body.ModifiedBy,
-				Owner: req.body.Owner,
-				Comments: req.body.Comments,
-				Difficulty: req.body.Difficulty,
-				EndDate: req.body.EndDate,
-				HelpfulBooks: req.body.HelpfulBooks,
-				HelpfulVideos: req.body.HelpfulVideos,
-				HomeworksCount: req.body.HomeworksCount,
-				Name: req.body.Name,
-				SimilarCourses: req.body.SimilarCourses,
-				StartDate: req.body.StartDate,
-				UsefulAdvice: req.body.UsefulAdvice
-			};
+		.get('/:title', function(req, res) {
+			let query = new data.createQuery();
 
-			console.log('Post started');
+			query
+				.where()
+				.eq('Name', req.params.title)
+				.done()
+				.select('Name', 'Difficulty');
 
-			telerikCourseData
-				.create(newCourse)
-				.then(function(result) {
-						res
-							.status(201)
-							.json({
-								// 0_o -> wut I write?
-								result: result.result,
-								request: req.body,
-								objectish: newCourse
+			data
+				.getAllWithQuery(telerikCourseData, query)
+				.then(function(response) {
+						let resultArray = [];
+
+						response
+							.forEach(x => {
+								resultArray
+									.push(x);
 							});
 
-						console.log('Post successful');
+						res
+							.status(200)
+							.json({
+								result: resultArray
+							});
+
+						console.log(`get on ${currentRouter}:title successful`);
 					},
 					// TODO: HANDLE THIS
 					function(error) {
-						res.status(404).json(error);
-
-						console.log('Post unsuccessful');
+						console.log(`get on ${currentRouter}:title unsuccessful`);
+						res.status(500).json({
+							error: error
+						});
 					});
 		});
+	// .post('/', function(req, res) {
+	// 	let newCourse = {
+	// 		CreatedAt: new Date(),
+	// 		ModifiedAt: new Date(),
+	// 		CreatedBy: req.body.CreatedBy,
+	// 		ModifiedBy: req.body.ModifiedBy,
+	// 		Owner: req.body.Owner,
+	// 		Comments: req.body.Comments,
+	// 		Difficulty: req.body.Difficulty,
+	// 		EndDate: req.body.EndDate,
+	// 		HelpfulBooks: req.body.HelpfulBooks,
+	// 		HelpfulVideos: req.body.HelpfulVideos,
+	// 		HomeworksCount: req.body.HomeworksCount,
+	// 		Name: req.body.Name,
+	// 		SimilarCourses: req.body.SimilarCourses,
+	// 		StartDate: req.body.StartDate,
+	// 		UsefulAdvice: req.body.UsefulAdvice
+	// 	};
+	//
+	// 	telerikCourseData
+	// 		.create(newCourse)
+	// 		.then(function(result) {
+	// 				res
+	// 					.status(201)
+	// 					.json({
+	// 						// 0_o -> wut I write?
+	// 						result: result.result,
+	// 						request: req.body,
+	// 						objectish: newCourse
+	// 					});
+	//
+	// 				console.log('Post successful');
+	// 			},
+	// 			// TODO: HANDLE THIS
+	// 			function(error) {
+	// 				res.status(404).json(error);
+	//
+	// 				console.log('Post unsuccessful');
+	// 			});
+	// });
 
 	module.exports = function(app) {
 		app.use('/api/telerik-courses', myRouter);

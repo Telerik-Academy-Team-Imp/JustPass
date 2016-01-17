@@ -8,13 +8,29 @@
 	//let myQuery = new everlive.Query();
 	//myQuery.where().isin('Name', ['Doncho', 'Evlogi']);
 
+	let telerikCourseData = el.data('TelerikCourse');
+
+	function getAllWithQuery(typeData,query) {
+		return new Promise((resolve, reject) => {
+			typeData
+				.get(query)
+				.then(function(response) {
+						resolve(response.result);
+					},
+					function(error) {
+						reject(error);
+					});
+		});
+	}
+
 	module.exports = {
 		init: function() {
-			return new Everlive(constants.EVERLIVE_API_KEY);
+			return el;
 		},
 		createQuery: function() {
 			return new Everlive.Query();
 		},
-		data: el.data
+		data: el.data,
+		getAllWithQuery: getAllWithQuery
 	};
 }());
