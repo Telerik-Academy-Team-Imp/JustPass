@@ -2,7 +2,7 @@
 {
 	'use strict';
 
-	const constants = require('./../Helpers/constants');
+	const constants = require('./../helpers/constants');
 	let everliveLocation = constants.EVERLIVE_LOCATION,
 		Everlive = require('./../everlive.all.js'),
 		el = new Everlive('9unql0fug2904yqd');

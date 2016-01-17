@@ -9,9 +9,9 @@
 
 	app.use(bodyParser.json());
 
-	let coursesRouter = require('./Routers/courses-router');
-	coursesRouter(app);
-
+	// let coursesRouter = require('./Routers/courses-router');
+	// coursesRouter(app);
+	require('./routers')(app);
 	// On route "/api/logs" use router myRouter
 	//app.use('/api/logs', myRouter);
 
