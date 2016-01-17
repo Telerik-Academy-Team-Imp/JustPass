@@ -4,7 +4,7 @@
 	function mapDbAdviceModelToClientModel(adviceCollection) {
 		let resultCollection = [];
 
-		telerikCoursesCollection.forEach(course => {
+		adviceCollection.forEach(course => {
 			resultCollection.push({
 				Id: course.Id,
 				Text: course.Text
@@ -17,7 +17,7 @@
 	function mapDbBookModelToClientModel(booksCollection) {
 		let resultCollection = [];
 
-		telerikCoursesCollection.forEach(course => {
+		booksCollection.forEach(course => {
 			resultCollection.push({
 				Id: course.Id,
 				Rating: course.Rating,
@@ -32,7 +32,7 @@
 	function mapDbCommentModelToClientModel(commentsCollection) {
 		let resultCollection = [];
 
-		telerikCoursesCollection.forEach(course => {
+		commentsCollection.forEach(course => {
 			resultCollection.push({
 				Id: course.Id,
 				Text: course.Text,
@@ -47,7 +47,7 @@
 	function mapDbCourseResultModelToClientModel(courseResultsCollection) {
 		let resultCollection = [];
 
-		telerikCoursesCollection.forEach(course => {
+		courseResultsCollection.forEach(course => {
 			resultCollection.push({
 				Id: course.Id,
 				Course: course.Course,
@@ -61,7 +61,7 @@
 	function mapDbExternalCourseModelToClientModel(externalCoursesCollection) {
 		let resultCollection = [];
 
-		telerikCoursesCollection.forEach(course => {
+		externalCoursesCollection.forEach(course => {
 			resultCollection.push({
 				Id: course.Id,
 				Organisation: course.Organisation,
@@ -100,7 +100,7 @@
 	function mapDbVideoModelToClientModel(videosCollection) {
 		let resultCollection = [];
 
-		telerikCoursesCollection.forEach(course => {
+		videosCollection.forEach(course => {
 			resultCollection.push({
 				Id: course.Id,
 				Rating: course.Rating,

@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	const currentRouter = 'Comments';
+	const currentRouter = 'comments';
 	console.log(`${currentRouter} router loaded`);
 
 	const constants = require('./../helpers/constants');
@@ -29,7 +29,6 @@
 
 						console.log(`get on ${currentRouter} successful`);
 					},
-					// TODO: HANDLE THIS
 					function(error) {
 						console.log(`get on ${currentRouter} unsuccessful`);
 						res.status(500).json({
@@ -44,23 +43,20 @@
 				.where()
 				.eq('Owner', req.params.owner)
 				.done()
-				.select('Text', 'Owner', 'Id');
+				.select(
+					'Text',
+					'Owner',
+					'Rating',
+					'Id');
 
 			data
 				.getAllWithQuery(currentTypeData, query)
 				.then(function(response) {
-						let resultArray = [];
-
-						response
-							.forEach(x => {
-								resultArray
-									.push(x);
-							});
-
 						res
 							.status(200)
 							.json({
-								result: resultArray
+								result: mapper
+									.mapDbCommentModelToClientModel(response)
 							});
 
 						console.log(`get on ${currentRouter}:owner successful`);
@@ -81,16 +77,21 @@
 				ModifiedBy: req.body.ModifiedBy,
 				Owner: req.body.Owner,
 				Text: req.body.Text,
+				Rating: req.body.Rating
 			};
 
 			currentTypeData
 				.create(newComment)
-				.then(function(result) {
+				.then(function(response) {
+
+						let temp = [];
+						temp.push(response.result);
+
 						res
 							.status(201)
 							.json({
-								// 0_o -> wut I write?
-								result: newComment
+								result: mapper
+									.mapDbCommentModelToClientModel(temp)
 							});
 
 						console.log(`post on ${currentRouter} unsuccessful`);

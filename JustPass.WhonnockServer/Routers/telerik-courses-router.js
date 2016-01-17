@@ -37,14 +37,26 @@
 						});
 					});
 		})
-		.get('/:title', function(req, res) {
+		.get('/:name', function(req, res) {
 			let query = new data.createQuery();
 
 			query
 				.where()
-				.eq('Name', req.params.title)
+				.eq('Name', req.params.name)
 				.done()
-				.select('Name', 'Difficulty');
+				.select(
+					'UsefulAdvice',
+					'StartDate',
+					'SimilarCourses',
+					'Name',
+					'MaxPossibleResult',
+					'HomeworksCount',
+					'HelpfulVideos',
+					'HelpfulBooks',
+					'EndDate',
+					'Difficulty',
+					'Comments',
+					'Id');
 
 			data
 				.getAllWithQuery(currentTypeData, query)
@@ -57,11 +69,10 @@
 									.mapDbTelerikCourseModelToClientModel(response)
 							});
 
-						console.log(`get on ${currentRouter}:title successful`);
+						console.log(`get on ${currentRouter}:name successful`);
 					},
-					// TODO: HANDLE THIS
 					function(error) {
-						console.log(`get on ${currentRouter}:title unsuccessful`);
+						console.log(`get on ${currentRouter}:name unsuccessful`);
 						res.status(500).json({
 							error: error
 						});

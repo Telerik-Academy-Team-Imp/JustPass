@@ -1,42 +1,34 @@
 (function() {
 	'use strict';
 
-	const currentRouter = 'Advice';
+	const currentRouter = 'advice';
 	console.log(`${currentRouter} router loaded`);
 
 	const constants = require('./../helpers/constants');
 	let express = require('express'),
 		helpers = require('./../helpers/helpers'),
+		mapper = require('./../helpers/mapper'),
 		data = require('./../data/data.js'),
 		db = data.init(),
 		myRouter = express.Router(),
-		adviceData = db.data('Advice');
+		currentTypeData = db.data('Advice');
 
 	myRouter
 	// (req, res, next)
 		.get('/', function(req, res) {
 			data
-				.getAllWithQuery(adviceData)
+				.getAllWithQuery(currentTypeData)
 				.then(function(response) {
-						let resultArray = [];
-
-						response
-							.forEach(x => {
-								resultArray
-									.push({
-										name: x.Name
-									});
-							});
 
 						res
 							.status(200)
 							.json({
-								result: resultArray
+								result: mapper
+									.mapDbAdviceModelToClientModel(response)
 							});
 
 						console.log(`get on ${currentRouter} successful`);
 					},
-					// TODO: HANDLE THIS
 					function(error) {
 						console.log(`get on ${currentRouter} unsuccessful`);
 						res.status(500).json({
@@ -44,75 +36,43 @@
 						});
 					});
 		})
-		.get('/:owner', function(req, res) {
-			let query = new data.createQuery();
+		.post('/', function(req, res) {
+			let newAdvice = {
+				CreatedAt: new Date(),
+				ModifiedAt: new Date(),
+				CreatedBy: req.body.CreatedBy,
+				ModifiedBy: req.body.ModifiedBy,
+				Owner: req.body.Owner,
+				Text: req.body.Text
+			};
 
-			query
-				.where()
-				.eq('Owner', req.params.owner)
-				.done()
-				.select('Text', 'Owner', 'Id');
-
-			data
-				.getAllWithQuery(currentTypeData, query)
+			currentTypeData
+				.create(newAdvice)
 				.then(function(response) {
-						let resultArray = [];
 
-						response
-							.forEach(x => {
-								resultArray
-									.push(x);
-							});
+						let temp = [];
+						temp.push(response.result);
 
 						res
-							.status(200)
+							.status(201)
 							.json({
-								result: resultArray
+								result: mapper
+									.mapDbAdviceModelToClientModel(temp)
 							});
 
-						console.log(`get on ${currentRouter}:owner successful`);
+						console.log(`post on ${currentRouter} unsuccessful`);
 					},
 					// TODO: HANDLE THIS
 					function(error) {
-						console.log(`get on ${currentRouter}:owner unsuccessful`);
 						res.status(500).json({
 							error: error
 						});
+
+						console.log(`post on ${currentRouter} unsuccessful`);
 					});
-		})
-	.post('/', function(req, res) {
-		let newAdvice = {
-			CreatedAt: new Date(),
-			ModifiedAt: new Date(),
-			CreatedBy: req.body.CreatedBy,
-			ModifiedBy: req.body.ModifiedBy,
-			Owner: req.body.Owner,
-			Text: req.body.Text,
-		};
-
-		currentTypeData
-			.create(newAdvice)
-			.then(function(result) {
-					res
-						.status(201)
-						.json({
-							// 0_o -> wut I write?
-							result: newAdvice
-						});
-
-					console.log(`post on ${currentRouter} unsuccessful`);
-				},
-				// TODO: HANDLE THIS
-				function(error) {
-					res.status(500).json({
-						error: error
-					});
-
-					console.log(`post on ${currentRouter} unsuccessful`);
-				});
-	});
+		});
 
 	module.exports = function(app) {
-		app.use('/api/advice', myRouter);
+		app.use('/api/books', myRouter);
 	};
 }());

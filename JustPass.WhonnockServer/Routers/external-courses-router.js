@@ -1,42 +1,34 @@
 (function() {
 	'use strict';
 
-	const currentRouter = 'Advice';
+	const currentRouter = 'external-courses';
 	console.log(`${currentRouter} router loaded`);
 
 	const constants = require('./../helpers/constants');
 	let express = require('express'),
 		helpers = require('./../helpers/helpers'),
+		mapper = require('./../helpers/mapper'),
 		data = require('./../data/data.js'),
 		db = data.init(),
 		myRouter = express.Router(),
-		adviceData = db.data('Advice');
+		currentTypeData = db.data('ExternalCourse');
 
 	myRouter
 	// (req, res, next)
 		.get('/', function(req, res) {
 			data
-				.getAllWithQuery(adviceData)
+				.getAllWithQuery(currentTypeData)
 				.then(function(response) {
-						let resultArray = [];
-
-						response
-							.forEach(x => {
-								resultArray
-									.push({
-										name: x.Name
-									});
-							});
 
 						res
 							.status(200)
 							.json({
-								result: resultArray
+								result: mapper
+									.mapDbExternalCourseModelToClientModel(response)
 							});
 
 						console.log(`get on ${currentRouter} successful`);
 					},
-					// TODO: HANDLE THIS
 					function(error) {
 						console.log(`get on ${currentRouter} unsuccessful`);
 						res.status(500).json({
@@ -44,75 +36,79 @@
 						});
 					});
 		})
-		.get('/:owner', function(req, res) {
+		.get('/:title', function(req, res) {
 			let query = new data.createQuery();
 
 			query
+
 				.where()
-				.eq('Owner', req.params.owner)
+				.eq('Title', req.params.title)
 				.done()
-				.select('Text', 'Owner', 'Id');
+				.select(
+					'Id',
+					'Organisation',
+					'Subject',
+					'Title',
+					'Source');
 
 			data
 				.getAllWithQuery(currentTypeData, query)
 				.then(function(response) {
-						let resultArray = [];
-
-						response
-							.forEach(x => {
-								resultArray
-									.push(x);
-							});
-
 						res
 							.status(200)
 							.json({
-								result: resultArray
+								result: mapper
+									.mapDbExternalCourseModelToClientModel(response)
 							});
 
-						console.log(`get on ${currentRouter}:owner successful`);
+						console.log(`get on ${currentRouter}:title successful`);
 					},
-					// TODO: HANDLE THIS
 					function(error) {
-						console.log(`get on ${currentRouter}:owner unsuccessful`);
+						console.log(`get on ${currentRouter}:title unsuccessful`);
 						res.status(500).json({
 							error: error
 						});
 					});
 		})
-	.post('/', function(req, res) {
-		let newAdvice = {
-			CreatedAt: new Date(),
-			ModifiedAt: new Date(),
-			CreatedBy: req.body.CreatedBy,
-			ModifiedBy: req.body.ModifiedBy,
-			Owner: req.body.Owner,
-			Text: req.body.Text,
-		};
+		.post('/', function(req, res) {
+			let newExternalCourse = {
+				CreatedAt: new Date(),
+				ModifiedAt: new Date(),
+				CreatedBy: req.body.CreatedBy,
+				ModifiedBy: req.body.ModifiedBy,
+				Owner: req.body.Owner,
+				Sources: req.body.Sources,
+				Title: req.body.Title,
+				Rating: req.body.Rating
+			};
 
-		currentTypeData
-			.create(newAdvice)
-			.then(function(result) {
-					res
-						.status(201)
-						.json({
-							// 0_o -> wut I write?
-							result: newAdvice
+			currentTypeData
+				.create(newExternalCourse)
+				.then(function(response) {
+
+						let temp = [];
+						temp.push(response.result);
+
+						res
+							.status(201)
+							.json({
+								result: mapper
+									.mapDbExternalCourseModelToClientModel(temp)
+							});
+
+						console.log(`post on ${currentRouter} unsuccessful`);
+					},
+					// TODO: HANDLE THIS
+					function(error) {
+						res.status(500).json({
+							error: error
 						});
 
-					console.log(`post on ${currentRouter} unsuccessful`);
-				},
-				// TODO: HANDLE THIS
-				function(error) {
-					res.status(500).json({
-						error: error
+						console.log(`post on ${currentRouter} unsuccessful`);
 					});
-
-					console.log(`post on ${currentRouter} unsuccessful`);
-				});
-	});
+		});
 
 	module.exports = function(app) {
-		app.use('/api/advice', myRouter);
+		app.use('/api/external-courses', myRouter);
 	};
 }());
