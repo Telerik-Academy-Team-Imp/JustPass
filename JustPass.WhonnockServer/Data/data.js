@@ -1,5 +1,4 @@
-(function()
-{
+(function() {
 	'use strict';
 
 	const constants = require('./../helpers/constants');
@@ -10,12 +9,10 @@
 	//myQuery.where().isin('Name', ['Doncho', 'Evlogi']);
 
 	module.exports = {
-		init: function()
-		{
+		init: function() {
 			return new Everlive(constants.EVERLIVE_API_KEY);
 		},
-		createQuery: function()
-		{
+		createQuery: function() {
 			return new Everlive.Query();
 		},
 		data: el.data

@@ -1,5 +1,4 @@
-(function()
-{
+(function() {
 	'use strict';
 
 	console.log('Courses router loaded');
@@ -14,14 +13,11 @@
 	let logsIdGenerator = helpers.getNextId();
 
 	myRouter
-		.get('/', function(req, res)
-		{
+		.get('/', function(req, res) {
 			telerikCourseData.get()
-				.then(function(response)
-				{
+				.then(function(response) {
 					let resultArray = [];
-					response.result.forEach(x =>
-					{
+					response.result.forEach(x => {
 						// Remove unnecessary stuff
 						resultArray.push(x
 							//{
@@ -36,10 +32,8 @@
 
 					// Simulate slow response
 					var millisecondsToWait = 5;
-					setTimeout(function()
-					{
-						res.status(200).json(
-						{
+					setTimeout(function() {
+						res.status(200).json({
 							result: resultArray
 						});
 					}, millisecondsToWait);
@@ -47,46 +41,37 @@
 
 				});
 		})
-		.get('/:id', function(req, res)
-		{
+		.get('/:id', function(req, res) {
 			telerikCourseData.get()
-				.then(function(response)
-				{
+				.then(function(response) {
 					let resultArray = [];
-					response.result.forEach(x =>
-					{
-						resultArray.push(
-						{
+					response.result.forEach(x => {
+						resultArray.push({
 							name: x.Name
 						});
 					});
 
 					res.status(200)
-						.json(
-						{
+						.json({
 							result: resultArray.where(x => x.Id === req.Id)
 						});
 				});
 		})
-		.post('/', function(req, res)
-		{
+		.post('/', function(req, res) {
 			let newCourse = {
-				Name: req.body.sample
+				Name: req.body.name
 			};
 
-			telerikCourseData.create(newCourse).then(function(result)
-			{
+			telerikCourseData.create(newCourse).then(function(result) {
 				res.status(201)
-					.json(
-					{
-                        // 0_o -> wut I write?
+					.json({
+						// 0_o -> wut I write?
 						result: result.result
 					});
 			});
 		});
 
-	module.exports = function(app)
-	{
-		app.use('/api/courses', myRouter);
+	module.exports = function(app) {
+		app.use('/api/telerik-courses', myRouter);
 	};
 }());

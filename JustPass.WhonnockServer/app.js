@@ -1,5 +1,4 @@
-(function()
-{
+(function() {
 	'use strict';
 	const constants = require('./Helpers/constants');
 	let express = require('express'),
@@ -11,12 +10,11 @@
 
 	// let coursesRouter = require('./Routers/courses-router');
 	// coursesRouter(app);
-	require('./routers')(app);
+	require(constants.ROUTERS_LOCATION)(app);
 	// On route "/api/logs" use router myRouter
 	//app.use('/api/logs', myRouter);
 
-	app.listen(constants.PORT, function()
-	{
+	app.listen(constants.PORT, function() {
 		console.log(`server running on port ${constants.PORT}`);
 	});
 }());

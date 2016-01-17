@@ -1,12 +1,9 @@
-(function()
-{
+(function() {
 	'use strict';
 
-	function* getNextId()
-	{
+	function* getNextId() {
 		let id = 1;
-		while (true)
-		{
+		while (true) {
 			yield id++;
 		}
 	}
