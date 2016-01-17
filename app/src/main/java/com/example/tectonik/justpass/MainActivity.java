@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.tectonik.justpass.fragments.AboutFragment;
 import com.example.tectonik.justpass.fragments.LoginFragment;
@@ -70,6 +71,10 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.noSwipeViewPager);
         JustPassPagerAdapter adapter = new JustPassPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+        TextView fullName = (TextView) findViewById(R.id.full_name);
+        TextView email = (TextView) findViewById(R.id.email);
+//        fullName.setText();
+//        email.setText();
 
         appBar = (AppBarLayout) findViewById(R.id.toolbar_layout);
 

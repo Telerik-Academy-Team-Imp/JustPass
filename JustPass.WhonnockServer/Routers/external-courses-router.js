@@ -1,77 +1,118 @@
-// (function() {
-// 	'use strict';
-//
-// 	console.log('Courses router loaded');
-//
-// 	const constants = require('./../helpers/constants');
-// 	let express = require('express'),
-// 		helpers = require('./../helpers/helpers'),
-// 		db = require('./../data/data.js').init(),
-// 		myRouter = express.Router(),
-// 		telerikCourseData = db.data('TelerikCourse');
-//
-// 	let logsIdGenerator = helpers.getNextId();
-//
-// 	myRouter
-// 		.get('/', function(req, res) {
-// 			telerikCourseData.get()
-// 				.then(function(response) {
-// 					let resultArray = [];
-// 					response.result.forEach(x => {
-// 						// Remove unnecessary stuff
-// 						resultArray.push(x
-// 							//{
-// 							//    name: x.Name,
-// 							//    id: x.Id,
-// 							//    homeworks: x.Homeworks,
-// 							//    endDate: x.EndDate,
-// 							//    startDate: x.StartDate
-// 							//}
-// 						);
-// 					});
-//
-// 					// Simulate slow response
-// 					var millisecondsToWait = 5;
-// 					setTimeout(function() {
-// 						res.status(200).json({
-// 							result: resultArray
-// 						});
-// 					}, millisecondsToWait);
-//
-//
-// 				});
-// 		})
-// 		.get('/:id', function(req, res) {
-// 			telerikCourseData.get()
-// 				.then(function(response) {
-// 					let resultArray = [];
-// 					response.result.forEach(x => {
-// 						resultArray.push({
-// 							name: x.Name
-// 						});
-// 					});
-//
-// 					res.status(200)
-// 						.json({
-// 							result: resultArray.where(x => x.Id === req.Id)
-// 						});
-// 				});
-// 		})
-// 		.post('/', function(req, res) {
-// 			let newCourse = {
-// 				Name: req.body.name
-// 			};
-//
-// 			telerikCourseData.create(newCourse).then(function(result) {
-// 				res.status(201)
-// 					.json({
-// 						// 0_o -> wut I write?
-// 						result: result.result
-// 					});
-// 			});
-// 		});
-//
-// 	module.exports = function(app) {
-// 		app.use('/api/telerik-courses', myRouter);
-// 	};
-// }());
+(function() {
+	'use strict';
+
+	const currentRouter = 'Advice';
+	console.log(`${currentRouter} router loaded`);
+
+	const constants = require('./../helpers/constants');
+	let express = require('express'),
+		helpers = require('./../helpers/helpers'),
+		data = require('./../data/data.js'),
+		db = data.init(),
+		myRouter = express.Router(),
+		adviceData = db.data('Advice');
+
+	myRouter
+	// (req, res, next)
+		.get('/', function(req, res) {
+			data
+				.getAllWithQuery(adviceData)
+				.then(function(response) {
+						let resultArray = [];
+
+						response
+							.forEach(x => {
+								resultArray
+									.push({
+										name: x.Name
+									});
+							});
+
+						res
+							.status(200)
+							.json({
+								result: resultArray
+							});
+
+						console.log(`get on ${currentRouter} successful`);
+					},
+					// TODO: HANDLE THIS
+					function(error) {
+						console.log(`get on ${currentRouter} unsuccessful`);
+						res.status(500).json({
+							error
+						});
+					});
+		})
+		.get('/:owner', function(req, res) {
+			let query = new data.createQuery();
+
+			query
+				.where()
+				.eq('Owner', req.params.owner)
+				.done()
+				.select('Text', 'Owner', 'Id');
+
+			data
+				.getAllWithQuery(currentTypeData, query)
+				.then(function(response) {
+						let resultArray = [];
+
+						response
+							.forEach(x => {
+								resultArray
+									.push(x);
+							});
+
+						res
+							.status(200)
+							.json({
+								result: resultArray
+							});
+
+						console.log(`get on ${currentRouter}:owner successful`);
+					},
+					// TODO: HANDLE THIS
+					function(error) {
+						console.log(`get on ${currentRouter}:owner unsuccessful`);
+						res.status(500).json({
+							error: error
+						});
+					});
+		})
+	.post('/', function(req, res) {
+		let newAdvice = {
+			CreatedAt: new Date(),
+			ModifiedAt: new Date(),
+			CreatedBy: req.body.CreatedBy,
+			ModifiedBy: req.body.ModifiedBy,
+			Owner: req.body.Owner,
+			Text: req.body.Text,
+		};
+
+		currentTypeData
+			.create(newAdvice)
+			.then(function(result) {
+					res
+						.status(201)
+						.json({
+							// 0_o -> wut I write?
+							result: newAdvice
+						});
+
+					console.log(`post on ${currentRouter} unsuccessful`);
+				},
+				// TODO: HANDLE THIS
+				function(error) {
+					res.status(500).json({
+						error: error
+					});
+
+					console.log(`post on ${currentRouter} unsuccessful`);
+				});
+	});
+
+	module.exports = function(app) {
+		app.use('/api/advice', myRouter);
+	};
+}());

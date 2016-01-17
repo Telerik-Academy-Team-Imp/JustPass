@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	let currentRouter = 'Advice';
+	const currentRouter = 'Advice';
 	console.log(`${currentRouter} router loaded`);
 
 	const constants = require('./../helpers/constants');
@@ -54,7 +54,7 @@
 				.select('Text', 'Owner', 'Id');
 
 			data
-				.getAllWithQuery(adviceData, query)
+				.getAllWithQuery(currentTypeData, query)
 				.then(function(response) {
 						let resultArray = [];
 
@@ -81,7 +81,7 @@
 					});
 		})
 	.post('/', function(req, res) {
-		let newCourse = {
+		let newAdvice = {
 			CreatedAt: new Date(),
 			ModifiedAt: new Date(),
 			CreatedBy: req.body.CreatedBy,
@@ -90,14 +90,14 @@
 			Text: req.body.Text,
 		};
 
-		telerikCourseData
-			.create(newCourse)
+		currentTypeData
+			.create(newAdvice)
 			.then(function(result) {
 					res
 						.status(201)
 						.json({
 							// 0_o -> wut I write?
-							result: newCourse
+							result: newAdvice
 						});
 
 					console.log(`post on ${currentRouter} unsuccessful`);

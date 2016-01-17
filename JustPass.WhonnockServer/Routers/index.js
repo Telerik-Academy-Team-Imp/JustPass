@@ -7,8 +7,8 @@
 	module.exports = function(app) {
 		fileSystem
 			.readdirSync(constants.ROUTERS_LOCATION)
-			// .filter(file => file == 'telerik-courses-router.js')
-			.filter(file => file != 'index.js')
+			.filter(file => file == 'comments-router.js')
+			// .filter(file => file != 'index.js')
 			.forEach(file => require(`./${file}`)(app));
 
 		// // require('./advices-router.js')(app);

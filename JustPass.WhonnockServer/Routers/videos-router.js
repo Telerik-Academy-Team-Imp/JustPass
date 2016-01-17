@@ -79,7 +79,7 @@
 							error: error
 						});
 					});
-		});
+		})
 	.post('/', function(req, res) {
 		let newVideo = {
 			CreatedAt: new Date(),
