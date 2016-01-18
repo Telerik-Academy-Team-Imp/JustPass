@@ -11,105 +11,88 @@
 		data = require('./../data/data.js'),
 		db = data.init(),
 		myRouter = express.Router(),
-		currentTypeData = db.data('Comment');
+		currentTypeData = db.data('Users');
 
 	myRouter
 	// (req, res, next)
-		.get('/', function(req, res) {
-			data
-				.getAllWithQuery(currentTypeData)
-				.then(function(response) {
+		.put('/login', function(req, res) {
+			let user = req.body,
+				password = user.Password,
+				username = user.Username;
 
-						res
-							.status(200)
-							.json({
-								result: mapper
-									.mapDbCommentModelToClientModel(response)
-							});
-
-						console.log(`get on ${currentRouter} successful`);
-					},
-					function(error) {
-						console.log(`get on ${currentRouter} unsuccessful`);
-						res.status(500).json({
-							error
-						});
+			db.authentication.login(username, password, function(dataObj) {
+				res
+					.status(201)
+					.json({
+						result: "User logged in successfully",
+						tokenInfo: dataObj
 					});
+			}, function(error) {
+				res
+					.status(404)
+					.json({
+						result: "User has not been logged in ",
+						message: error.message
+					});
+
+				console.log(error);
+			})
 		})
-		.get('/:owner', function(req, res) {
-			let query = new data.createQuery();
-
-			query
-				.where()
-				.eq('Owner', req.params.owner)
-				.done()
-				.select(
-					'Text',
-					'Owner',
-					'Rating',
-					'Id');
-
-			data
-				.getAllWithQuery(currentTypeData, query)
-				.then(function(response) {
-						res
-							.status(200)
-							.json({
-								result: mapper
-									.mapDbCommentModelToClientModel(response)
-							});
-
-						console.log(`get on ${currentRouter}:owner successful`);
-					},
-					// TODO: HANDLE THIS
-					function(error) {
-						console.log(`get on ${currentRouter}:owner unsuccessful`);
-						res.status(500).json({
-							error: error
-						});
+		.put('/logout', function(req, res) {
+			db.authentication.logout(function() {
+				res
+					.status(201)
+					.json({
+						result: "User logged out successfully"
 					});
+			}, function(error) {
+				res
+					.status(404)
+					.json({
+						result: "User has not been logged out ",
+						message: error.message
+					});
+
+				console.log(error);
+			})
 		})
-		.post('/', function(req, res) {
-			let newComment = {
-				CreatedAt: new Date(),
-				ModifiedAt: new Date(),
-				CreatedBy: req.body.CreatedBy,
-				ModifiedBy: req.body.ModifiedBy,
-				Owner: req.body.Owner,
-				Text: req.body.Text,
-				Rating: req.body.Rating
-			};
+		.post('/register', function(req, res) {
+			let newUser = req.body,
+				password = newUser.Password,
+				username = newUser.Username,
+				otherAttributes = {
+					Email: newUser.Email,
+					DisplayName: newUser.DisplayName,
+					CreatedAt: new Date(),
+					ModifiedAt: new Date(),
+					Courses: newUser.Courses,
+					Image: newUser.Image
+				};
 
-			currentTypeData
-				.create(newComment)
-				.then(function(response) {
-
-						let temp = [];
-						temp.push(response.result);
-
-						res
-							.status(201)
-							.json({
-								result: mapper
-									.mapDbCommentModelToClientModel(temp)
-							});
-
-						console.log(`post on ${currentRouter} unsuccessful`);
-					},
-					// TODO: HANDLE THIS
-					function(error) {
-						res.status(500).json({
-							error: error
+			db.Users.register(username, password, otherAttributes,
+				function(dataObj) {
+					res
+						.status(201)
+						.json({
+							result: "User created successfully"
+						});
+				},
+				function(error) {
+					res
+						.status(404)
+						.json({
+							result: "User has not been created",
+							message: error.message
 						});
 
-						console.log(`post on ${currentRouter} unsuccessful`);
-					});
+					console.log(error);
+				})
 		});
 
 	module.exports = {
 		controller: {},
 		typeData: currentTypeData,
-		init: function (app) {
+		init: function(app) {
 			app.use('/api/auth', myRouter);
 		}
 	};

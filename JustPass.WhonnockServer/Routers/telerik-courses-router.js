@@ -20,30 +20,6 @@
 			data
 				.getAllWithQuery(currentTypeData)
 				.then(function(response) {
-
-						response.forEach(x => {
-							let videoTypeData = videos.typeData;
-							let query = new data.createQuery();
-
-							query
-								.where()
-								.isin('Id', x.HelpfulVideos)
-								.done()
-								.select(
-									'Title'
-								);
-
-							data
-								.getAllWithQuery(videoTypeData, query)
-								.then(function(response) {
-									console.log("---------------------------");
-									console.log(x.HelpfulVideos);
-									x.HelpfulVideos = response;
-									console.log(x.HelpfulVideos);
-									console.log("---------------------------");
-								});
-						});
-
 						res
 							.status(200)
 							.json({
@@ -53,7 +29,6 @@
 
 						console.log(`get on ${currentRouter} successful`);
 					},
-					// TODO: HANDLE THIS
 					function(error) {
 						console.log(`get on ${currentRouter} unsuccessful`);
 						res.status(500).json({

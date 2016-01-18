@@ -41,9 +41,4 @@ public class Validator {
 
         return false;
     }
-
-    public boolean validateLoginCredentials(String usernameOrEmail, String password) {
-
-        return true;
-    }
 }
