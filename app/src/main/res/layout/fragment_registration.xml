@@ -30,7 +30,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginBottom="10dp"
-            android:id="@+id/enterText"
+            android:id="@+id/reg_user_name"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/pass"
+                android:id="@+id/reg_pass"
                 />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -59,7 +59,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/pass_repeat"
+                android:id="@+id/reg_pass_repeat"
                 />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -73,7 +73,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="10dp"
-                android:id="@+id/email"
+                android:id="@+id/reg_email"
                 />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

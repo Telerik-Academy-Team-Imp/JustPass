@@ -11,10 +11,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:textStyle="bold"
-<<<<<<< HEAD
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-=======
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:onClick="navigateToCourseFragment"/>
->>>>>>> 3428227f3366ac321bc07b10e524a0caa6a079ba
+
     </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.tectonik.justpass;
+package com.example.tectonik.justpass.fragments;
 
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;

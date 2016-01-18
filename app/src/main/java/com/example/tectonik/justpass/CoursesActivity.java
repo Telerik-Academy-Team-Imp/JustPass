@@ -49,10 +49,6 @@ public class CoursesActivity extends AppCompatActivity {
     public void navigateToCourseFragment(View view) {
         switch (view.getId()) {
             case R.id.list_course_name:
-//                this
-//                        .getPreferences(Context.MODE_PRIVATE)
-//                        .edit().putBoolean(getString(R.string.selected), true)
-//                        .commit();
                 coursesViewPager.setCurrentItem(1);
                 break;
         }
