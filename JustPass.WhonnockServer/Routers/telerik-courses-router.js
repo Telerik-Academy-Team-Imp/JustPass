@@ -20,6 +20,33 @@
 			data
 				.getAllWithQuery(currentTypeData)
 				.then(function(response) {
+<<<<<<< HEAD
+=======
+
+						response.forEach(x => {
+							let videoTypeData = videos.typeData;
+							let query = new data.createQuery();
+
+							query
+								.where()
+								.isin('Id', x.HelpfulVideos)
+								.done()
+								.select(
+									'Title'
+								);
+
+							data
+								.getAllWithQuery(videoTypeData, query)
+								.then(function(response) {
+									console.log("---------------------------");
+									console.log(x.HelpfulVideos);
+									x.HelpfulVideos = response;
+									console.log(x.HelpfulVideos);
+									console.log("---------------------------");
+								});
+						});
+
+>>>>>>> 3428227f3366ac321bc07b10e524a0caa6a079ba
 						res
 							.status(200)
 							.json({
