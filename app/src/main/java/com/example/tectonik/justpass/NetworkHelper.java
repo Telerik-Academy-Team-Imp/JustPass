@@ -1,4 +1,4 @@
-package com.example.tectonik.justpass.helpers;
+package com.example.tectonik.justpass;
 
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -17,6 +17,15 @@ public class NetworkHelper {
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+    Call get(String url,Callback callback) {
+        //RequestBody body = RequestBody.create(JSON);
+        Request request = new Request.Builder()
+                .url(url)
                 .build();
         Call call = client.newCall(request);
         call.enqueue(callback);

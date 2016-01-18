@@ -3,10 +3,10 @@ package com.example.tectonik.justpass;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
@@ -23,8 +23,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,14 @@ import com.example.tectonik.justpass.fragments.RegistrationFragment;
 import com.example.tectonik.justpass.helpers.Constants;
 import com.example.tectonik.justpass.helpers.ImageManager;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity
@@ -50,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     private AppBarLayout appBar;
     private Toolbar toolbar;
     private String key;
+    private ArrayAdapter<String> adapter;
     private Context mContext;
     private boolean isLogged;
     private static final Integer NOTIFICATION_ID = 69;
@@ -86,6 +95,8 @@ public class MainActivity extends AppCompatActivity
         TextView email = (TextView) findViewById(R.id.email);
 //        fullName.setText();
 //        email.setText();
+        Button reg = (Button) findViewById(R.id.btn_reg_login_page);
+
 
         appBar = (AppBarLayout) findViewById(R.id.toolbar_layout);
 
@@ -301,5 +312,67 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class LoadDataClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            FetchDataTask forecastTask = new FetchDataTask();
+            forecastTask.execute("94043");
+        }
+    }
+
+    public class FetchDataTask extends AsyncTask<String, Void, String[]> {
+        private final String LOG_TAG = FetchDataTask.class.getSimpleName();
+
+        @Override
+        protected String[] doInBackground(String... params) {
+
+            String[] str = null;
+            NetworkHelper networkHelper = new NetworkHelper();
+
+            String json = "{\"Name\":\"Johan Strauss\", \"Difficulty\":3}";
+
+            JSONObject obj = new JSONObject();
+            try {
+                obj.put("Name", "Hello");
+                obj.put("Difficulty", "10");
+                obj.put("Comments", "Hi");
+                obj.put("HelpfulBooks", "The Book");
+                obj.put("HelpfulVideos", "https://www.youtube.com/watch?v=Da4DL5-9JOI&index=10&list=PLF4lVL1sPDSn8rCh8DLlP5BJmOAXqe74x");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            networkHelper.post("http://192.168.199.61:3001/api/telerik-courses", obj.toString(), new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    String responseStr = response.body().string();
+                    final String messageText = "Status code : " + response.code() +
+                            "\n" +
+                            "Response body : " + responseStr;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, messageText, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+
+            return str;
+        }
+
+        @Override
+        protected void onPostExecute(String[] results) {
+            if (results != null) {
+                adapter.clear();
+                adapter.addAll(results);
+            }
+        }
     }
 }
