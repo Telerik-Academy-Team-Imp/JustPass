@@ -233,11 +233,6 @@
                         android:gravity="center"/>
                 </LinearLayout>
             </RelativeLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clear"
-                android:id="@+id/clear"/>
         </LinearLayout>
     </LinearLayout>
 

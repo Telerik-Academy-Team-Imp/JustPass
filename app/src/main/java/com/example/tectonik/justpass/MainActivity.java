@@ -1,5 +1,9 @@
 package com.example.tectonik.justpass;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,10 +24,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tectonik.justpass.fragments.AboutFragment;
-import com.example.tectonik.justpass.fragments.CourseFragment;
 import com.example.tectonik.justpass.fragments.LoginFragment;
 import com.example.tectonik.justpass.fragments.MainPageFragment;
 import com.example.tectonik.justpass.fragments.ProfileFragment;
@@ -30,25 +36,30 @@ import com.example.tectonik.justpass.fragments.RegistrationFragment;
 import com.example.tectonik.justpass.helpers.Constants;
 import com.example.tectonik.justpass.helpers.ImageManager;
 
+
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    DrawerLayout drawer;
-    ViewPager viewPager;
-    Stack<Integer> pageHistory;
-    int currentPage;
-    boolean saveToHistory;
-    AppBarLayout appBar;
-    Toolbar toolbar;
-    String key;
-    boolean isLogged;
+    private DrawerLayout drawer;
+    private ViewPager viewPager;
+    private Stack<Integer> pageHistory;
+    private int currentPage;
+    private boolean saveToHistory;
+    private AppBarLayout appBar;
+    private Toolbar toolbar;
+    private String key;
+    private Context mContext;
+    private boolean isLogged;
+    private static final Integer NOTIFICATION_ID = 69;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mContext = this;
 
         key = getString(R.string.autoLog);
         isLogged = this
@@ -57,7 +68,6 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -121,10 +131,28 @@ public class MainActivity extends AppCompatActivity
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 
             ImageManager.SaveImage(imageBitmap);
+            sendNotification();
 
             ImageView imageView = (ImageView) this.findViewById(R.id.profile_picture);
             imageView.setImageBitmap(imageBitmap);
         }
+    }
+
+    private void sendNotification() {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+        mBuilder.setContentTitle("Picture saved.");
+        mBuilder.setContentText("Your profile picture was successfully saved.");
+        mBuilder.setSmallIcon(R.drawable.ok);
+
+        Intent notificationIntent = new Intent(mContext, MainActivity.class);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT);
+
+        mBuilder.setContentIntent(notificationPendingIntent);
+        Notification notificationObject = mBuilder.build();
+
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID, notificationObject);
     }
 
     public void navigateToFragment(View view) {
@@ -137,9 +165,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.btn_login:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 appBar.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Welcome. You are logged in", Toast.LENGTH_LONG).show();
                 viewPager.setCurrentItem(1);
-                //saveToHistory = false;
-                pageHistory.pop();
+                saveToHistory = false;
+                //pageHistory.pop();
                 break;
             case R.id.btn_registration:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -263,6 +292,8 @@ public class MainActivity extends AppCompatActivity
                     .getPreferences(Context.MODE_PRIVATE)
                     .edit().putBoolean(getString(R.string.autoLog), false)
                     .commit();
+
+            Toast.makeText(this, "Successfully logged out.", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
