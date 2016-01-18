@@ -67,7 +67,8 @@
                 android:cursorVisible="false"
                 android:layout_weight="50"
                 android:layout_marginLeft="30dp"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:editable="false"/>
 
             <EditText
                 android:id="@+id/etxt_todate"
@@ -79,7 +80,8 @@
                 android:cursorVisible="false"
                 android:layout_weight="50"
                 android:gravity="center"
-                android:layout_marginRight="30dp"/>
+                android:layout_marginRight="30dp"
+                android:editable="false"/>
         </LinearLayout>
 
         <LinearLayout

@@ -33,5 +33,8 @@
     <string name="drawer_exit_section">Exit</string>
     <string name="drawer_info_section">Info</string>
     <string name="drawer_about_title">About</string>
-    <string name="lorem_ipsum_text">Lorem Ipsum е елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква, за да напечата с тях книга с примерни шрифтове. Този начин не само е оцелял повече от 5 века, но е навлязъл и в публикуването на електронни издания като е запазен почти без промяна. Популяризиран е през 60те години на 20ти век със издаването на Letraset листи, съдържащи Lorem Ipsum пасажи, популярен е и в наши дни във софтуер за печатни издания като Aldus PageMaker, който включва различни версии на Lorem Ipsum.</string>
+    <string name="lorem_ipsum_text">JustPass in a handy app for all Telerik Acdemy students.
+        They can check their current and past courses. As well as their results till now.
+
+        Moreover there are useful advice for pass all courses successfully and having a good time in the academy.</string>
 </resources>
