@@ -7,6 +7,7 @@
 	const constants = require('./../helpers/constants');
 	let express = require('express'),
 		helpers = require('./../helpers/helpers'),
+		videos = require('./videos-router.js'),
 		mapper = require('./../helpers/mapper.js'),
 		data = require('./../data/data.js'),
 		db = data.init(),
@@ -19,6 +20,29 @@
 			data
 				.getAllWithQuery(currentTypeData)
 				.then(function(response) {
+
+						response.forEach(x => {
+							let videoTypeData = videos.typeData;
+							let query = new data.createQuery();
+
+							query
+								.where()
+								.isin('Id', x.HelpfulVideos)
+								.done()
+								.select(
+									'Title'
+								);
+
+							data
+								.getAllWithQuery(videoTypeData, query)
+								.then(function(response) {
+									console.log("---------------------------");
+									console.log(x.HelpfulVideos);
+									x.HelpfulVideos = response;
+									console.log(x.HelpfulVideos);
+									console.log("---------------------------");
+								});
+						});
 
 						res
 							.status(200)
@@ -82,7 +106,7 @@
 	module.exports = {
 		controller: {},
 		typeData: currentTypeData,
-		init: function (app) {
+		init: function(app) {
 			app.use('/api/telerik-courses', myRouter);
 		}
 	};
