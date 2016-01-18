@@ -1,11 +1,16 @@
 package com.example.tectonik.justpass.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.tectonik.justpass.R;
 import com.example.tectonik.justpass.adapters.Courses;
@@ -20,6 +25,7 @@ public class CoursesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_courses, container, false);
+
         populateCoursesList();
         return rootView;
     }

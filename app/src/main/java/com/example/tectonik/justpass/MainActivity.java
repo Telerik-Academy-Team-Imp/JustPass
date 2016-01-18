@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tectonik.justpass.fragments.AboutFragment;
+import com.example.tectonik.justpass.fragments.CourseFragment;
 import com.example.tectonik.justpass.fragments.LoginFragment;
 import com.example.tectonik.justpass.fragments.MainPageFragment;
 import com.example.tectonik.justpass.fragments.ProfileFragment;

@@ -24,6 +24,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="checkboxText">Remember Me</string>
     <string name="autoLog">isChecked</string>
+    <string name="selected">isSelected</string>
     <string name="drawer_main_page_title">Main Page</string>
     <string name="drawer_courses_title">Courses</string>
     <string name="drawer_course_title">Current course</string>
