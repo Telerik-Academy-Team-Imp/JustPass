@@ -4,10 +4,10 @@
 	function mapDbAdviceModelToClientModel(adviceCollection) {
 		let resultCollection = [];
 
-		adviceCollection.forEach(course => {
+		adviceCollection.forEach(advice => {
 			resultCollection.push({
-				Id: course.Id,
-				Text: course.Text
+				Id: advice.Id,
+				Text: advice.Text
 			})
 		});
 
@@ -17,12 +17,12 @@
 	function mapDbBookModelToClientModel(booksCollection) {
 		let resultCollection = [];
 
-		booksCollection.forEach(course => {
+		booksCollection.forEach(book => {
 			resultCollection.push({
-				Id: course.Id,
-				Rating: course.Rating,
-				Sources: course.Sources,
-				Title: course.Title
+				Id: book.Id,
+				Rating: book.Rating,
+				Sources: book.Sources,
+				Title: book.Title
 			})
 		});
 
@@ -32,12 +32,12 @@
 	function mapDbCommentModelToClientModel(commentsCollection) {
 		let resultCollection = [];
 
-		commentsCollection.forEach(course => {
+		commentsCollection.forEach(comment => {
 			resultCollection.push({
-				Id: course.Id,
-				Text: course.Text,
-				Rating: course.Rating,
-				Owner: course.Owner
+				Id: comment.Id,
+				Text: comment.Text,
+				Rating: comment.Rating,
+				Owner: comment.Owner
 			})
 		});
 
@@ -47,11 +47,11 @@
 	function mapDbCourseResultModelToClientModel(courseResultsCollection) {
 		let resultCollection = [];
 
-		courseResultsCollection.forEach(course => {
+		courseResultsCollection.forEach(courseResult => {
 			resultCollection.push({
-				Id: course.Id,
-				Course: course.Course,
-				Result: course.Result
+				Id: courseResult.Id,
+				Course: courseResult.Course,
+				Result: courseResult.Result
 			})
 		});
 
@@ -100,12 +100,12 @@
 	function mapDbVideoModelToClientModel(videosCollection) {
 		let resultCollection = [];
 
-		videosCollection.forEach(course => {
+		videosCollection.forEach(video => {
 			resultCollection.push({
-				Id: course.Id,
-				Rating: course.Rating,
-				Sources: course.Sources,
-				Title: course.Title
+				Id: video.Id,
+				Rating: video.Rating,
+				Sources: video.Sources,
+				Title: video.Title
 			})
 		});
 
