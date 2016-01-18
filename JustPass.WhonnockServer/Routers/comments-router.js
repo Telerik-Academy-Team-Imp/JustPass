@@ -61,7 +61,6 @@
 
                         console.log(`get on ${currentRouter}:owner successful`);
                     },
-                    // TODO: HANDLE THIS
                     function (error) {
                         console.log(`get on ${currentRouter}:owner unsuccessful`);
                         res.status(500).json({

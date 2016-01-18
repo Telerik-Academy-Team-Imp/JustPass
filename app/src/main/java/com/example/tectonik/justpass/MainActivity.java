@@ -168,7 +168,9 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Welcome. You are logged in", Toast.LENGTH_LONG).show();
                 viewPager.setCurrentItem(1);
                 saveToHistory = false;
-                //pageHistory.pop();
+                if(!pageHistory.empty()) {
+                    pageHistory.pop();
+                }
                 break;
             case R.id.btn_registration:
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
