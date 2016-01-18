@@ -79,7 +79,11 @@
 					});
 		});
 
-	module.exports = function(app) {
-		app.use('/api/telerik-courses', myRouter);
+	module.exports = {
+		controller: {},
+		typeData: currentTypeData,
+		init: function (app) {
+			app.use('/api/telerik-courses', myRouter);
+		}
 	};
 }());

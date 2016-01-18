@@ -108,7 +108,11 @@
 					});
 		});
 
-	module.exports = function(app) {
-		app.use('/api/external-courses', myRouter);
+	module.exports = {
+		controller: {},
+		typeData: currentTypeData,
+		init: function (app) {
+			app.use('/api/external-courses', myRouter);
+		}
 	};
 }());

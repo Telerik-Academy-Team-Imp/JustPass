@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	const currentRouter = 'videos';
+	const currentRouter = 'accounts';
 	console.log(`${currentRouter} router loaded`);
 
 	const constants = require('./../helpers/constants');
@@ -11,7 +11,7 @@
 		data = require('./../data/data.js'),
 		db = data.init(),
 		myRouter = express.Router(),
-		currentTypeData = db.data('Video');
+		currentTypeData = db.data('Comment');
 
 	myRouter
 	// (req, res, next)
@@ -24,7 +24,7 @@
 							.status(200)
 							.json({
 								result: mapper
-									.mapDbVideoModelToClientModel(response)
+									.mapDbCommentModelToClientModel(response)
 							});
 
 						console.log(`get on ${currentRouter} successful`);
@@ -36,13 +36,12 @@
 						});
 					});
 		})
-		.get('/:title', function(req, res) {
+		.get('/:owner', function(req, res) {
 			let query = new data.createQuery();
 
 			query
-
 				.where()
-				.eq('Title', req.params.title)
+				.eq('Owner', req.params.owner)
 				.done()
 				.select(
 					'Text',
@@ -57,33 +56,32 @@
 							.status(200)
 							.json({
 								result: mapper
-									.mapDbVideoModelToClientModel(response)
+									.mapDbCommentModelToClientModel(response)
 							});
 
-						console.log(`get on ${currentRouter}:title successful`);
+						console.log(`get on ${currentRouter}:owner successful`);
 					},
 					// TODO: HANDLE THIS
 					function(error) {
-						console.log(`get on ${currentRouter}:title unsuccessful`);
+						console.log(`get on ${currentRouter}:owner unsuccessful`);
 						res.status(500).json({
 							error: error
 						});
 					});
 		})
 		.post('/', function(req, res) {
-			let newVideo = {
+			let newComment = {
 				CreatedAt: new Date(),
 				ModifiedAt: new Date(),
 				CreatedBy: req.body.CreatedBy,
 				ModifiedBy: req.body.ModifiedBy,
 				Owner: req.body.Owner,
-				Sources: req.body.Sources,
-				Title: req.body.Title,
+				Text: req.body.Text,
 				Rating: req.body.Rating
 			};
 
 			currentTypeData
-				.create(newVideo)
+				.create(newComment)
 				.then(function(response) {
 
 						let temp = [];
@@ -93,7 +91,7 @@
 							.status(201)
 							.json({
 								result: mapper
-									.mapDbVideoModelToClientModel(temp)
+									.mapDbCommentModelToClientModel(temp)
 							});
 
 						console.log(`post on ${currentRouter} unsuccessful`);
@@ -112,7 +110,7 @@
 		controller: {},
 		typeData: currentTypeData,
 		init: function (app) {
-			app.use('/api/videos', myRouter);
+			app.use('/api/auth', myRouter);
 		}
 	};
 }());
