@@ -19,6 +19,7 @@ import com.example.tectonik.justpass.R;
 import com.example.tectonik.justpass.ScaleImageActivity;
 import com.example.tectonik.justpass.adapters.Courses;
 import com.example.tectonik.justpass.adapters.CustomCoursesAdapter;
+import com.example.tectonik.justpass.adapters.CustomUserCoursesAdapter;
 import com.example.tectonik.justpass.customViews.ScaleImageView;
 import com.example.tectonik.justpass.helpers.Constants;
 import com.example.tectonik.justpass.helpers.ImageManager;
@@ -77,7 +78,7 @@ public class ProfileFragment extends Fragment {
         // Construct the data source
         ArrayList<Courses> arrayOfUsers = Courses.getCourses();
         // Create the adapter to convert the array to views
-        CustomCoursesAdapter adapter = new CustomCoursesAdapter(getActivity(), arrayOfUsers);
+        CustomUserCoursesAdapter adapter = new CustomUserCoursesAdapter(getActivity(), arrayOfUsers);
         // Attach the adapter to a ListView
         ListView listView = (ListView) rootView.findViewById(R.id.profile_list_view);
         listView.setAdapter(adapter);
