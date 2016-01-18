@@ -19,13 +19,13 @@ public class Courses {
         courses.add(new Courses("JavaScript OOP", "42"));
         courses.add(new Courses("SPA JS", "55"));
         courses.add(new Courses("High Quality Code", "72"));
-        courses.add(new Courses("High Quality Code", "72"));
-        courses.add(new Courses("High Quality Code", "72"));
-        courses.add(new Courses("High Quality Code", "72"));
-        courses.add(new Courses("High Quality Code", "72"));
-        courses.add(new Courses("High Quality Code", "72"));
-        courses.add(new Courses("High Quality Code", "72"));
-        courses.add(new Courses("High Quality Code", "72"));
+        courses.add(new Courses("Data Bases", "72"));
+        courses.add(new Courses("HTML Basics", "72"));
+        courses.add(new Courses("CSS Basics", "72"));
+        courses.add(new Courses("JavaScript Part I", "72"));
+        courses.add(new Courses("Mobile Track - Android", "72"));
+        courses.add(new Courses("Web Services and Cloud", "72"));
+        courses.add(new Courses("Mobile Track - iOS", "72"));
         return courses;
     }
 }

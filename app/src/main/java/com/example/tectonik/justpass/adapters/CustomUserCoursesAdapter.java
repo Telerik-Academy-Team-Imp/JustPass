@@ -11,9 +11,9 @@ import com.example.tectonik.justpass.R;
 
 import java.util.ArrayList;
 
-public class CustomCoursesAdapter extends ArrayAdapter<Courses> {
+public class CustomUserCoursesAdapter extends ArrayAdapter<Courses> {
 
-    public CustomCoursesAdapter(Context context, ArrayList<Courses> users) {
+    public CustomUserCoursesAdapter(Context context, ArrayList<Courses> users) {
         super(context, 0, users);
     }
 
@@ -23,12 +23,14 @@ public class CustomCoursesAdapter extends ArrayAdapter<Courses> {
         Courses courses = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_courses, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_item, parent, false);
         }
         // Lookup view for data population
-        TextView tvCourseName = (TextView) convertView.findViewById(R.id.list_course_name);
+        TextView tvCourseName = (TextView) convertView.findViewById(R.id.iv_course_name);
+        TextView tvResults = (TextView) convertView.findViewById(R.id.iv_course_result);
         // Populate the data into the template view using the data object
         tvCourseName.setText(courses.courseName);
+        tvResults.setText(courses.results);
         // Return the completed view to render on screen
         return convertView;
     }

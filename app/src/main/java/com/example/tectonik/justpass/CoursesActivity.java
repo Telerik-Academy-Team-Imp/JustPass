@@ -62,7 +62,7 @@ public class CoursesActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0: return "Courses";
-                case 1: return "Current Course";
+                case 1: return "Course Information";
                 case 2: return "Add Course";
                 default: return "non";
             }
